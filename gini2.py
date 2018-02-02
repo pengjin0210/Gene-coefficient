@@ -1,4 +1,4 @@
-import numpy as np
+# import numpy as np
 import xlwings as xw
 # from functools import reduce
 
@@ -30,7 +30,8 @@ for si in range(0,len(sheet_names),1):
         data=data_range.value
         data=sorted(data)
         step=len(data)//10
-        split_d=[data[i*step+(5 if i>=5 else i):i*step+(5 if i>=5 else i)+step+(0 if i>=5 else 1)] for i in range(0,10,1)]
+        remainder=len(data)%10
+        split_d=[data[i*step+(remainder if i>=remainder else i):i*step+(remainder if i>=remainder else i)+step+(0 if i>=remainder else 1)] for i in range(0,10,1)]
         d_ce=[sum(split_d[i]) for i in range(0,len(split_d),1)]
         print(sheet_names[si]+':'+str('%.f' % workbook.sheets[sheet_names[si]].range(c+'1').value)+':'+str(gini_my2(d_ce)))
 
